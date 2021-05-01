@@ -1,0 +1,8 @@
+DROP DATABASE IF EXISTS disabilityService;
+DROP USER IF EXISTS `disability_service`@`%`;
+CREATE DATABASE IF NOT EXISTS disabilityService CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS `disability_service`@`%` IDENTIFIED WITH mysql_native_password BY 'password';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW,
+CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON `disabilityService`.* TO `disability_service`@`%`;
+FLUSH PRIVILEGES;
+
