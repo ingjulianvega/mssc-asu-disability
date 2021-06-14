@@ -24,7 +24,7 @@ spring:
       config: classpath:ehcache.xml
   #Zipkin
   zipkin:
-    enabled: false
+    baseUrl: http://localhost:9411/
   #ActiveMQ
   activemq:
     broker-url: tcp://localhost:61616
@@ -60,6 +60,10 @@ spring:
         qos-enabled: true
         receive-timeout: 1000
         time-to-live: 36000
+  sleuth:
+    messaging:
+      jms:
+        enabled: false
 #General configuration
 server:
   port: 8097
@@ -72,6 +76,11 @@ logging:
 #Exceptions
 disability:
   success: The operation was successful.
-  prefix: 'API-DAB:'
+  prefix: 'DISABILITY'
   error:
     general: There was an unexpected error. Please try again.
+#Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://netflix:eureka@localhost:8761/eureka
