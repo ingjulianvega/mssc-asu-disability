@@ -76,7 +76,7 @@ logging:
 #Exceptions
 disability:
   success: The operation was successful.
-  prefix: 'DISABILITY'
+  prefix: @artifactId@
   error:
     general: There was an unexpected error. Please try again.
 #Eureka
