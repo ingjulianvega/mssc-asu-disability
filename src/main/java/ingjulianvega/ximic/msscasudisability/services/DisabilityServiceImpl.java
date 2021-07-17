@@ -12,6 +12,7 @@ import ingjulianvega.ximic.msscasudisability.web.model.DisabilityList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -40,7 +41,14 @@ public class DisabilityServiceImpl implements DisabilityService {
         log.debug("getById()...");
         return disabilityMapper.disabilityEntityToDisabilityDto(
                 disabilityRepository.findById(id)
-                        .orElseThrow(() -> new DisabilityException(ErrorCodeMessages.DISABILITY_NOT_FOUND, "")));
+                        .orElseThrow(() -> DisabilityException
+                                .builder()
+                                .httpStatus(HttpStatus.BAD_REQUEST)
+                                .apiCode(ErrorCodeMessages.DISABILITY_NOT_FOUND_API_CODE)
+                                .error(ErrorCodeMessages.DISABILITY_NOT_FOUND_ERROR)
+                                .message(ErrorCodeMessages.DISABILITY_NOT_FOUND_MESSAGE)
+                                .solution(ErrorCodeMessages.DISABILITY_NOT_FOUND_SOLUTION)
+                                .build()));
     }
 
     @Override
@@ -72,7 +80,14 @@ public class DisabilityServiceImpl implements DisabilityService {
     public void updateById(UUID id, Disability disability) {
         log.debug("updateById...");
         DisabilityEntity remissionEntity = disabilityRepository.findById(id)
-                .orElseThrow(() -> new DisabilityException(ErrorCodeMessages.DISABILITY_NOT_FOUND, ""));
+                .orElseThrow(() -> DisabilityException
+                        .builder()
+                        .httpStatus(HttpStatus.BAD_REQUEST)
+                        .apiCode(ErrorCodeMessages.DISABILITY_NOT_FOUND_API_CODE)
+                        .error(ErrorCodeMessages.DISABILITY_NOT_FOUND_ERROR)
+                        .message(ErrorCodeMessages.DISABILITY_NOT_FOUND_MESSAGE)
+                        .solution(ErrorCodeMessages.DISABILITY_NOT_FOUND_SOLUTION)
+                        .build());
 
         remissionEntity.setVisitId(disability.getVisitId());
         remissionEntity.setDisabilityTypeId(disability.getDisabilityTypeId());
